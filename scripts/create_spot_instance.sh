@@ -35,7 +35,9 @@ mode=rw,size=50,type=pd-balanced \
   --shielded-integrity-monitoring \
   --labels=goog-ec-src=vm_add-gcloud \
   --reservation-affinity=any \
-  ${STARTUP_SCRIPT_URL:+--metadata=startup-script-url=${STARTUP_SCRIPT_URL}}
+  --metadata=startup-script-url=${STARTUP_SCRIPT_URL}
+  # ${STARTUP_SCRIPT_URL:+--metadata=startup-script-url=${STARTUP_SCRIPT_URL}}
+  
 
 echo "✅ Instance '${INSTANCE_NAME}' created."
 
