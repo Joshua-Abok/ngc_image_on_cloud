@@ -16,4 +16,11 @@ gcloud config set project YOUR_PROJECT_ID
 gsutil mb gs://<choose-globally-unique-name>
 ```
 
+## 3. Tear down the VM when done
+
+```bash
+./delete_instance.sh ml-spot-v100 us-central1-a
+```
+
+
 
