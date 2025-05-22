@@ -5,8 +5,9 @@ set -euo pipefail
 INSTANCE_NAME="${1:-ml-gpu-vm}"
 ZONE="${2:-us-central1-b}"
 PROJECT="${3:-my-gcp-project}"
-SERVICE_AC_NO="${4:-service-account-number}"
-STARTUP_SCRIPT_URL="${5:-}"
+GPU_TYPE="${4:-v100}"
+SERVICE_AC_NO="${5:-service-account-number}"
+STARTUP_SCRIPT_URL="${6:-}"
 
 echo "Creating GPU Spot VM: ${INSTANCE_NAME} in ${ZONE}..."
 
@@ -26,10 +27,10 @@ https://www.googleapis.com/auth/monitoring.write,\
 https://www.googleapis.com/auth/service.management.readonly,\
 https://www.googleapis.com/auth/servicecontrol,\
 https://www.googleapis.com/auth/trace.append" \
-  --accelerator=count=1,type=nvidia-tesla-v100 \
+  --accelerator=count=1,type=nvidia-tesla-${GPU_TYPE} \
   --create-disk=auto-delete=yes,boot=yes,device-name="${INSTANCE_NAME}",\
-image=projects/ml-images/global/images/c0-deeplearning-common-cpu-v20230925-debian-10,\
-mode=rw,size=50,type=pd-balanced \
+image=projects/ml-images/global/images/c0-deeplearning-common-cu118-v20241118-debian-11-py310,\
+mode=rw,size=150,type=pd-balanced \
   --no-shielded-secure-boot \
   --shielded-vtpm \
   --shielded-integrity-monitoring \

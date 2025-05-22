@@ -1,5 +1,6 @@
 #!/bin/bash
 # runs as root on VM startup
+set -euo pipefail
 
 #1. update & install prerequisites
 apt-get update 
@@ -19,6 +20,11 @@ echo \
 apt-get update 
 apt-get install -y docker-ce docker-ce-cli containerd.io
 
+# # 2b. Install the NVIDIA GPU driver
+# apt-get install -y linux-headers-$(uname -r) nvidia-driver-525
+# # verify
+# nvidia-smi
+
 # 3. Install NVIDIA Container Toolkit  
 distribution=$(. /etc/os-release; echo $ID$VERSION_ID)
 curl -s -L https://nvidia.github.io/nvidia-docker/gpgkey \
@@ -36,7 +42,7 @@ usermod -aG docker ubuntu
 # 5. Pull NGC PyTorch image  
 docker pull nvcr.io/nvidia/pytorch:24.11-py3
 
-6. Launch Jupyter notebook container 
+# 6. Launch Jupyter notebook container 
 #    - Replace /home/ubuntu/llm-project with project path on persistent disk
 
 # Ensure the project directory exists
